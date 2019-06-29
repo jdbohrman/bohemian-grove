@@ -1,0 +1,151 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: streaming
+  name: streaming
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: streaming
+    spec:
+      containers:
+      - args:
+        - yarn
+        - start
+        env:
+        - name: ALLOW_ACCESS_TO_HIDDEN_SERVICE
+          valueFrom:
+            configMapKeyRef:
+              key: ALLOW_ACCESS_TO_HIDDEN_SERVICE
+              name: streaming-env-production
+        - name: DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: DATABASE_URL
+              name: streaming-env-production
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: DB_HOST
+              name: streaming-env-production
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: DB_NAME
+              name: streaming-env-production
+        - name: DB_PASS
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PASS
+              name: streaming-env-production
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PORT
+              name: streaming-env-production
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              key: DB_USER
+              name: streaming-env-production
+        - name: ES_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              key: ES_ENABLED
+              name: streaming-env-production
+        - name: ES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: ES_HOST
+              name: streaming-env-production
+        - name: ES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: ES_PORT
+              name: streaming-env-production
+        - name: GID
+          valueFrom:
+            configMapKeyRef:
+              key: GID
+              name: streaming-env-production
+        - name: LOCAL_DOMAIN
+          valueFrom:
+            configMapKeyRef:
+              key: LOCAL_DOMAIN
+              name: streaming-env-production
+        - name: OAUTH_REDIRECT_AT_SIGN_IN
+          valueFrom:
+            configMapKeyRef:
+              key: OAUTH_REDIRECT_AT_SIGN_IN
+              name: streaming-env-production
+        - name: OTP_SECRET
+          valueFrom:
+            configMapKeyRef:
+              key: OTP_SECRET
+              name: streaming-env-production
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_HOST
+              name: streaming-env-production
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_PORT
+              name: streaming-env-production
+        - name: REDIS_URL
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_URL
+              name: streaming-env-production
+        - name: SECRET_KEY_BASE
+          valueFrom:
+            configMapKeyRef:
+              key: SECRET_KEY_BASE
+              name: streaming-env-production
+        - name: STREAMING_CLUSTER_NUM
+          valueFrom:
+            configMapKeyRef:
+              key: STREAMING_CLUSTER_NUM
+              name: streaming-env-production
+        - name: UID
+          valueFrom:
+            configMapKeyRef:
+              key: UID
+              name: streaming-env-production
+        - name: VAPID_PRIVATE_KEY
+          valueFrom:
+            configMapKeyRef:
+              key: VAPID_PRIVATE_KEY
+              name: streaming-env-production
+        - name: VAPID_PUBLIC_KEY
+          valueFrom:
+            configMapKeyRef:
+              key: VAPID_PUBLIC_KEY
+              name: streaming-env-production
+        - name: http_proxy
+          valueFrom:
+            configMapKeyRef:
+              key: http_proxy
+              name: streaming-env-production
+        image: tootsuite/mastodon
+        livenessProbe:
+          exec:
+            command:
+            - 'wget -q --spider --header ''x-forwarded-proto: https'' --proxy=off
+              localhost:4000/api/v1/streaming/health || exit 1'
+        name: streaming
+        ports:
+        - containerPort: 4000
+        resources: {}
+      restartPolicy: Always
+status: {}

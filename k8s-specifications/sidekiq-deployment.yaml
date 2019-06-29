@@ -1,0 +1,153 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: sidekiq
+  name: sidekiq
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: sidekiq
+    spec:
+      containers:
+      - args:
+        - bundle
+        - exec
+        - sidekiq
+        env:
+        - name: ALLOW_ACCESS_TO_HIDDEN_SERVICE
+          valueFrom:
+            configMapKeyRef:
+              key: ALLOW_ACCESS_TO_HIDDEN_SERVICE
+              name: sidekiq-env-production
+        - name: DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: DATABASE_URL
+              name: sidekiq-env-production
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: DB_HOST
+              name: sidekiq-env-production
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: DB_NAME
+              name: sidekiq-env-production
+        - name: DB_PASS
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PASS
+              name: sidekiq-env-production
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PORT
+              name: sidekiq-env-production
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              key: DB_USER
+              name: sidekiq-env-production
+        - name: ES_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              key: ES_ENABLED
+              name: sidekiq-env-production
+        - name: ES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: ES_HOST
+              name: sidekiq-env-production
+        - name: ES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: ES_PORT
+              name: sidekiq-env-production
+        - name: GID
+          valueFrom:
+            configMapKeyRef:
+              key: GID
+              name: sidekiq-env-production
+        - name: LOCAL_DOMAIN
+          valueFrom:
+            configMapKeyRef:
+              key: LOCAL_DOMAIN
+              name: sidekiq-env-production
+        - name: OAUTH_REDIRECT_AT_SIGN_IN
+          valueFrom:
+            configMapKeyRef:
+              key: OAUTH_REDIRECT_AT_SIGN_IN
+              name: sidekiq-env-production
+        - name: OTP_SECRET
+          valueFrom:
+            configMapKeyRef:
+              key: OTP_SECRET
+              name: sidekiq-env-production
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_HOST
+              name: sidekiq-env-production
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_PORT
+              name: sidekiq-env-production
+        - name: REDIS_URL
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_URL
+              name: sidekiq-env-production
+        - name: SECRET_KEY_BASE
+          valueFrom:
+            configMapKeyRef:
+              key: SECRET_KEY_BASE
+              name: sidekiq-env-production
+        - name: STREAMING_CLUSTER_NUM
+          valueFrom:
+            configMapKeyRef:
+              key: STREAMING_CLUSTER_NUM
+              name: sidekiq-env-production
+        - name: UID
+          valueFrom:
+            configMapKeyRef:
+              key: UID
+              name: sidekiq-env-production
+        - name: VAPID_PRIVATE_KEY
+          valueFrom:
+            configMapKeyRef:
+              key: VAPID_PRIVATE_KEY
+              name: sidekiq-env-production
+        - name: VAPID_PUBLIC_KEY
+          valueFrom:
+            configMapKeyRef:
+              key: VAPID_PUBLIC_KEY
+              name: sidekiq-env-production
+        - name: http_proxy
+          valueFrom:
+            configMapKeyRef:
+              key: http_proxy
+              name: sidekiq-env-production
+        image: tootsuite/mastodon
+        name: sidekiq
+        resources: {}
+        volumeMounts:
+        - mountPath: /mastodon/public/system
+          name: sidekiq-claim0
+      restartPolicy: Always
+      volumes:
+      - name: sidekiq-claim0
+        persistentVolumeClaim:
+          claimName: sidekiq-claim0
+status: {}

@@ -1,0 +1,31 @@
+apiVersion: v1
+data:
+  ALLOW_ACCESS_TO_HIDDEN_SERVICE: "true"
+  DATABASE_URL: postgres://avnadmin:e4x8k5ln5do8g8vx@pg-3060ae30-jdbohrman-9d70.aivencloud.com:18585/defaultdb?sslmode=require
+  DB_HOST: pg-3060ae30-jdbohrman-9d70.aivencloud.com
+  DB_NAME: defaultdb
+  DB_PASS: e4x8k5ln5do8g8vx
+  DB_PORT: "18585"
+  DB_USER: avnadmin
+  ES_ENABLED: "true"
+  ES_HOST: es-236c237e-jdbohrman-9d70.aivencloud.com
+  ES_PORT: "18585"
+  GID: "4000"
+  LOCAL_DOMAIN: bohemiangrove.io
+  OAUTH_REDIRECT_AT_SIGN_IN: "true"
+  OTP_SECRET: ""
+  REDIS_HOST: redis-11080596-jdbohrman-9d70.aivencloud.com
+  REDIS_PORT: "18586"
+  REDIS_URL: rediss://default:qvjr2do1l2vwgc8d@redis-11080596-jdbohrman-9d70.aivencloud.com:18586
+  SECRET_KEY_BASE: ""
+  STREAMING_CLUSTER_NUM: "1"
+  UID: "3000"
+  VAPID_PRIVATE_KEY: ""
+  VAPID_PUBLIC_KEY: ""
+  http_proxy: http://privoxy:8118
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: streaming-env-production
+  name: streaming-env-production
